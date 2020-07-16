@@ -76,7 +76,7 @@ public class PetProvider extends ContentProvider {
                 break;
             case PET_ID:
                 // For the PET_ID code, extract out the ID from the URI.
-                // For an example URI such as "content://com.example.android.pets/pets/3",
+                // For an example URI such as "content://com.ibsanju.pets/pets/3",
                 // the selection will be "_id=?" and the selection argument will be a
                 // String array containing the actual ID of 3 in this case.
                 //
