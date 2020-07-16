@@ -115,11 +115,18 @@ public class PetProvider extends ContentProvider {
      * for that specific row in the database.
      */
     private Uri insertPet(Uri uri, ContentValues values) {
+        // Check that the name is not null
+        String name = values.getAsString(PetEntry.COLUMN_PET_NAME);
+        if (name == null) {
+            throw new IllegalArgumentException("Pet requires a name");
+        }
 
-        // TODO: Insert a new pet into the pets database table with the given ContentValues
+        // TODO: Finish sanity checking the rest of the attributes in ContentValues
+        Integer gender = values.getAsInteger(PetEntry.COLUMN_PET_GENDER);
+        if (gender == null || !PetEntry.isValidGender(gender)) {
+            throw new IllegalArgumentException("Pet requires valid gender");
+        }
 
-        // Once we know the ID of the new row in the table,
-        // return the new URI with the ID appended to the end of it
 
         // Get writeable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
