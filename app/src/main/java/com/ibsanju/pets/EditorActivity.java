@@ -108,6 +108,11 @@ public class EditorActivity extends AppCompatActivity implements
             // Otherwise this is an existing pet, so change  the app bar to say "Edit Pet"
             setTitle(getString(R.string.editor_activity_title_edit_pet));
 
+
+            // Invalidate the options menu, so the "Delete" menu option can be hidden.
+            // (It doesn't make sense to delete a pet that hasn't been created yet.)
+            invalidateOptionsMenu();
+
             // Initialize a loader to read the pet data from the database
             // and display the current values in the editor
             LoaderManager.getInstance(this).initLoader(EXISTING_PET_LOADER, null, this);
@@ -285,6 +290,22 @@ public class EditorActivity extends AppCompatActivity implements
         getMenuInflater().inflate(R.menu.menu_editor, menu);
         return true;
     }
+
+    /**
+     * This method is called after invalidateOptionsMenu(), so that the
+     * menu can be updated (some menu items can be hidden or made visible).
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        // If this is a new pet, hide the "Delete" menu item.
+        if (mCurrentPetUri == null) {
+            MenuItem menuItem = menu.findItem(R.id.action_delete);
+            menuItem.setVisible(false);
+        }
+        return true;
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
