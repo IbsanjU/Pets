@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,7 +61,7 @@ class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderC
         setContentView(R.layout.activity_catalog);
 
         // Setup FAB to open EditorActivity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public
@@ -71,7 +72,7 @@ class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderC
         });
 
         // Find the ListView which will be populated with the pet data
-        ListView petListView = (ListView) findViewById(R.id.list);
+        ListView petListView = findViewById(R.id.list);
 
         // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
         View emptyView = findViewById(R.id.empty_view);
@@ -132,9 +133,12 @@ class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderC
     /**
      * Helper method to delete all pets in the database.
      */
-    private void deleteAllPets() {
+    private
+    void deleteAllPets() {
         int rowsDeleted = getContentResolver().delete(PetEntry.CONTENT_URI, null, null);
         Log.v("CatalogActivity", rowsDeleted + " rows deleted from pet database");
+        Toast.makeText(getApplicationContext(), rowsDeleted + " rows deleted from pet database",
+                       Toast.LENGTH_SHORT).show();
     }
 
 

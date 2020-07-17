@@ -190,8 +190,9 @@ class PetProvider extends ContentProvider {
      * Updates the data at the given selection and selection arguments, with the new ContentValues.
      */
     @Override
-    public int update(Uri uri, ContentValues contentValues, String selection,
-                      String[] selectionArgs) {
+    public
+    int update(Uri uri, ContentValues contentValues, String selection,
+               String[] selectionArgs) {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case PETS:
@@ -201,7 +202,7 @@ class PetProvider extends ContentProvider {
                 // so we know which row to update. Selection will be "_id=?" and selection
                 // arguments will be a String array containing the actual ID.
                 selection = PetEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updatePet(uri, contentValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);
@@ -213,7 +214,8 @@ class PetProvider extends ContentProvider {
      * specified in the selection and selection arguments (which could be 0 or 1 or more pets).
      * Return the number of rows that were successfully updated.
      */
-    private int updatePet(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    private
+    int updatePet(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         // If the {@link PetEntry#COLUMN_PET_NAME} key is present,
         // check that the name value is not null.
         if (values.containsKey(PetEntry.COLUMN_PET_NAME)) {
@@ -269,7 +271,8 @@ class PetProvider extends ContentProvider {
      * Delete the data at the given selection and selection arguments.
      */
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public
+    int delete(Uri uri, String selection, String[] selectionArgs) {
         // Get writeable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
@@ -285,7 +288,7 @@ class PetProvider extends ContentProvider {
             case PET_ID:
                 // Delete a single row given by the ID in the URI
                 selection = PetEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 rowsDeleted = database.delete(PetEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:

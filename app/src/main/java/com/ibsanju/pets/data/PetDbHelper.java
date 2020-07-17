@@ -24,11 +24,14 @@ import com.ibsanju.pets.data.PetContract.PetEntry;
 /**
  * Database helper for Pets app. Manages database creation and version management.
  */
-public class PetDbHelper extends SQLiteOpenHelper {
+public
+class PetDbHelper extends SQLiteOpenHelper {
 
     public static final String LOG_TAG = PetDbHelper.class.getSimpleName();
 
-    /** Name of the database file */
+    /**
+     * Name of the database file
+     */
     private static final String DATABASE_NAME = "shelter.db";
 
     /**
@@ -41,7 +44,8 @@ public class PetDbHelper extends SQLiteOpenHelper {
      *
      * @param context of the app
      */
-    public PetDbHelper(Context context) {
+    public
+    PetDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -49,9 +53,10 @@ public class PetDbHelper extends SQLiteOpenHelper {
      * This is called when the database is created for the first time.
      */
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public
+    void onCreate(SQLiteDatabase db) {
         // Create a String that contains the SQL statement to create the pets table
-        String SQL_CREATE_PETS_TABLE =  "CREATE TABLE " + PetEntry.TABLE_NAME + " ("
+        String SQL_CREATE_PETS_TABLE = "CREATE TABLE " + PetEntry.TABLE_NAME + " ("
                 + PetEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + PetEntry.COLUMN_PET_NAME + " TEXT NOT NULL, "
                 + PetEntry.COLUMN_PET_BREED + " TEXT, "
@@ -66,7 +71,8 @@ public class PetDbHelper extends SQLiteOpenHelper {
      * This is called when the database needs to be upgraded.
      */
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public
+    void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // The database is still at version 1, so there's nothing to do be done here.
     }
 }

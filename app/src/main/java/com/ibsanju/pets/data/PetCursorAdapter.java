@@ -18,7 +18,8 @@ import com.ibsanju.pets.data.PetContract.PetEntry;
  * that uses a {@link Cursor} of pet data as its data source. This adapter knows
  * how to create list items for each row of pet data in the {@link Cursor}.
  */
-public class PetCursorAdapter extends CursorAdapter {
+public
+class PetCursorAdapter extends CursorAdapter {
 
     /**
      * Constructs a new {@link PetCursorAdapter}.
@@ -26,7 +27,8 @@ public class PetCursorAdapter extends CursorAdapter {
      * @param context The context
      * @param c       The cursor from which to get the data.
      */
-    public PetCursorAdapter(Context context, Cursor c) {
+    public
+    PetCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
     }
 
@@ -57,17 +59,18 @@ public class PetCursorAdapter extends CursorAdapter {
      *                correct row.
      */
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public
+    void bindView(View view, Context context, Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
-        TextView nameTextView    = (TextView) view.findViewById(R.id.name);
-        TextView summaryTextView = (TextView) view.findViewById(R.id.summary);
+        TextView nameTextView    = view.findViewById(R.id.name);
+        TextView summaryTextView = view.findViewById(R.id.summary);
 
         // Find the columns of pet attributes that we're interested in
-        int nameColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_NAME);
+        int nameColumnIndex  = cursor.getColumnIndex(PetEntry.COLUMN_PET_NAME);
         int breedColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_BREED);
 
         // Read the pet attributes from the Cursor for the current pet
-        String petName = cursor.getString(nameColumnIndex);
+        String petName  = cursor.getString(nameColumnIndex);
         String petBreed = cursor.getString(breedColumnIndex);
 
         // If the pet breed is empty string or null, then use some default text

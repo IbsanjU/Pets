@@ -45,25 +45,38 @@ import com.ibsanju.pets.data.PetContract.PetEntry;
 /**
  * Allows user to create a new pet or edit an existing one.
  */
-public class EditorActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor>  {
+public
+class EditorActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Identifier for the pet data loader */
+    /**
+     * Identifier for the pet data loader
+     */
     private static final int EXISTING_PET_LOADER = 0;
 
-    /** Content URI for the existing pet (null if it's a new pet) */
+    /**
+     * Content URI for the existing pet (null if it's a new pet)
+     */
     private Uri mCurrentPetUri;
 
-    /** EditText field to enter the pet's name */
+    /**
+     * EditText field to enter the pet's name
+     */
     private EditText mNameEditText;
 
-    /** EditText field to enter the pet's breed */
+    /**
+     * EditText field to enter the pet's breed
+     */
     private EditText mBreedEditText;
 
-    /** EditText field to enter the pet's weight */
+    /**
+     * EditText field to enter the pet's weight
+     */
     private EditText mWeightEditText;
 
-    /** EditText field to enter the pet's gender */
+    /**
+     * EditText field to enter the pet's gender
+     */
     private Spinner mGenderSpinner;
 
     /**
@@ -73,7 +86,9 @@ public class EditorActivity extends AppCompatActivity implements
      */
     private int mGender = PetEntry.GENDER_UNKNOWN;
 
-    /** Boolean flag that keeps track of whether the pet has been edited (true) or not (false) */
+    /**
+     * Boolean flag that keeps track of whether the pet has been edited (true) or not (false)
+     */
     private boolean mPetHasChanged = false;
 
     /**
@@ -82,7 +97,8 @@ public class EditorActivity extends AppCompatActivity implements
      */
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
+        public
+        boolean onTouch(View view, MotionEvent motionEvent) {
             mPetHasChanged = true;
             return false;
         }
@@ -90,7 +106,8 @@ public class EditorActivity extends AppCompatActivity implements
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected
+    void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
@@ -119,10 +136,10 @@ public class EditorActivity extends AppCompatActivity implements
         }
 
         // Find all relevant views that we will need to read user input from
-        mNameEditText = (EditText) findViewById(R.id.edit_pet_name);
-        mBreedEditText = (EditText) findViewById(R.id.edit_pet_breed);
-        mWeightEditText = (EditText) findViewById(R.id.edit_pet_weight);
-        mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
+        mNameEditText   = findViewById(R.id.edit_pet_name);
+        mBreedEditText  = findViewById(R.id.edit_pet_breed);
+        mWeightEditText = findViewById(R.id.edit_pet_weight);
+        mGenderSpinner  = findViewById(R.id.spinner_gender);
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
@@ -138,11 +155,12 @@ public class EditorActivity extends AppCompatActivity implements
     /**
      * Setup the dropdown spinner that allows the user to select the gender of the pet.
      */
-    private void setupSpinner() {
+    private
+    void setupSpinner() {
         // Create adapter for spinner. The list options are from the String array it will use
         // the spinner will use the default layout
         ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.array_gender_options, android.R.layout.simple_spinner_item);
+                                                                            R.array.array_gender_options, android.R.layout.simple_spinner_item);
 
         // Specify dropdown layout style - simple list view with 1 item per line
         genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -153,7 +171,8 @@ public class EditorActivity extends AppCompatActivity implements
         // Set the integer mSelected to the constant values
         mGenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public
+            void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.gender_male))) {
@@ -168,7 +187,8 @@ public class EditorActivity extends AppCompatActivity implements
 
             // Because AdapterView is an abstract class, onNothingSelected must be defined
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public
+            void onNothingSelected(AdapterView<?> parent) {
                 mGender = PetEntry.GENDER_UNKNOWN;
             }
         });
@@ -215,11 +235,12 @@ public class EditorActivity extends AppCompatActivity implements
     /**
      * Get user input from editor and save new pet into database.
      */
-    private void savePet() {
+    private
+    void savePet() {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
-        String nameString = mNameEditText.getText().toString().trim();
-        String breedString = mBreedEditText.getText().toString().trim();
+        String nameString   = mNameEditText.getText().toString().trim();
+        String breedString  = mBreedEditText.getText().toString().trim();
         String weightString = mWeightEditText.getText().toString().trim();
 
         // Check if this is supposed to be a new pet
@@ -284,7 +305,8 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public
+    boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_editor, menu);
@@ -296,7 +318,8 @@ public class EditorActivity extends AppCompatActivity implements
      * menu can be updated (some menu items can be hidden or made visible).
      */
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
+    public
+    boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         // If this is a new pet, hide the "Delete" menu item.
         if (mCurrentPetUri == null) {
@@ -308,7 +331,8 @@ public class EditorActivity extends AppCompatActivity implements
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public
+    boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
@@ -341,7 +365,8 @@ public class EditorActivity extends AppCompatActivity implements
                 DialogInterface.OnClickListener discardButtonClickListener =
                         new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                            public
+                            void onClick(DialogInterface dialogInterface, int i) {
                                 // User clicked "Discard" button, navigate to parent activity.
                                 NavUtils.navigateUpFromSameTask(EditorActivity.this);
                             }
@@ -358,7 +383,8 @@ public class EditorActivity extends AppCompatActivity implements
      * This method is called when the back button is pressed.
      */
     @Override
-    public void onBackPressed() {
+    public
+    void onBackPressed() {
         // If the pet hasn't changed, continue with handling back button press
         if (!mPetHasChanged) {
             super.onBackPressed();
@@ -370,7 +396,8 @@ public class EditorActivity extends AppCompatActivity implements
         DialogInterface.OnClickListener discardButtonClickListener =
                 new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    public
+                    void onClick(DialogInterface dialogInterface, int i) {
                         // User clicked "Discard" button, close the current activity.
                         finish();
                     }
@@ -467,7 +494,8 @@ public class EditorActivity extends AppCompatActivity implements
      * @param discardButtonClickListener is the click listener for what to do when
      *                                   the user confirms they want to discard their changes
      */
-    private void showUnsavedChangesDialog(
+    private
+    void showUnsavedChangesDialog(
             DialogInterface.OnClickListener discardButtonClickListener) {
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the postivie and negative buttons on the dialog.
@@ -475,7 +503,8 @@ public class EditorActivity extends AppCompatActivity implements
         builder.setMessage(R.string.unsaved_changes_dialog_msg);
         builder.setPositiveButton(R.string.discard, discardButtonClickListener);
         builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+            public
+            void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Keep editing" button, so dismiss the dialog
                 // and continue editing the pet.
                 if (dialog != null) {
